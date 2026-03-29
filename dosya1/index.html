@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boran Kazım Üstündağ | Kimya Mühendisi & Okçu</title>
+    <meta name="description" content="Boran Kazım Üstündağ - Hacettepe Üniversitesi Kimya Mühendisliği, Okçuluk Topluluğu Başkan Yardımcısı. Savunma Teknolojileri & Proje Yönetimi.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { DEFAULT: '#020617', light: '#0a1628', card: '#0d1b2a' },
+                        gold: { DEFAULT: '#FFD700', dim: '#b8991a', glow: 'rgba(255,215,0,0.25)' },
+                        target: { red: '#EF4444', blue: '#3B82F6' },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                },
+            },
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-navy text-gray-200 font-sans overflow-x-hidden">
+
+    <!-- ==================== SCROLL CHEMICAL BG ==================== -->
+    <div id="chem-bg" class="fixed inset-0 z-0 opacity-0 pointer-events-none transition-opacity duration-700"></div>
+
+    <!-- ==================== SPLASH SCREEN ==================== -->
+    <div id="splash" class="fixed inset-0 z-[99999] bg-navy">
+        <!-- JS-driven parabolic arrow -->
+        <div id="splash-arrow" style="opacity:0;">
+            <svg width="80" height="24" viewBox="0 0 80 24" fill="none">
+                <line x1="5" y1="12" x2="62" y2="12" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round"/>
+                <polygon points="80,12 62,5 65,12 62,19" fill="#FFD700"/>
+                <line x1="12" y1="5" x2="5" y2="12" stroke="#B8991A" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="12" y1="19" x2="5" y2="12" stroke="#B8991A" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="18" y1="7" x2="12" y2="12" stroke="#B8991A" stroke-width="1" stroke-linecap="round"/>
+                <line x1="18" y1="17" x2="12" y2="12" stroke="#B8991A" stroke-width="1" stroke-linecap="round"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ==================== INTERACTIVE TARGET (Top-Right Corner) ==================== -->
+    <div class="target-widget fixed top-6 right-6 z-50 hidden md:block" id="target-widget">
+        <div class="target-rings w-14 h-14 cursor-pointer relative">
+            <div class="absolute inset-0 rounded-full border-[3px] border-gold opacity-60 transition-all duration-300"></div>
+            <div class="absolute inset-[6px] rounded-full border-[3px] border-target-red opacity-60 transition-all duration-300"></div>
+            <div class="absolute inset-[12px] rounded-full border-[3px] border-target-blue opacity-60 transition-all duration-300"></div>
+            <div class="absolute inset-[18px] rounded-full bg-gold/30 transition-all duration-300"></div>
+            <!-- Arrow stuck in center (shows on hover) -->
+            <div class="target-arrow-stuck absolute left-1/2 top-[-20px] -translate-x-1/2 opacity-0 transition-all duration-300">
+                <svg width="8" height="32" viewBox="0 0 8 32" fill="none">
+                    <line x1="4" y1="0" x2="4" y2="28" stroke="#FFD700" stroke-width="2"/>
+                    <polygon points="1,28 4,32 7,28" fill="#FFD700"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-[1000] transition-all duration-500">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="#hero" class="font-mono text-lg font-bold tracking-tight">
+                <span class="text-gold">&lt;</span>BKÜ<span class="text-gold">/&gt;</span>
+            </a>
+            <ul class="hidden md:flex items-center gap-1" id="nav-links">
+                <li><a href="#hero" class="nav-link active" data-section="hero">Ana Sayfa</a></li>
+                <li><a href="#about" class="nav-link" data-section="about">Hakkımda</a></li>
+                <li><a href="#experience" class="nav-link" data-section="experience">Deneyim</a></li>
+                <li><a href="#education" class="nav-link" data-section="education">Eğitim</a></li>
+                <li><a href="#achievements" class="nav-link" data-section="achievements">Başarılar</a></li>
+                <li><a href="#contact" class="nav-link" data-section="contact">İletişim</a></li>
+            </ul>
+            <button class="md:hidden flex flex-col gap-[5px] p-2 z-[1001]" id="mobile-toggle" aria-label="Menü">
+                <span class="w-6 h-[2px] bg-gray-200 rounded transition-all duration-300 origin-center"></span>
+                <span class="w-6 h-[2px] bg-gray-200 rounded transition-all duration-300"></span>
+                <span class="w-6 h-[2px] bg-gray-200 rounded transition-all duration-300 origin-center"></span>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden fixed inset-0 bg-navy/95 backdrop-blur-xl flex flex-col items-center justify-center gap-6 opacity-0 pointer-events-none transition-all duration-400 z-[999]">
+            <a href="#hero" class="text-2xl font-semibold text-gray-200 hover:text-gold transition">Ana Sayfa</a>
+            <a href="#about" class="text-2xl font-semibold text-gray-200 hover:text-gold transition">Hakkımda</a>
+            <a href="#experience" class="text-2xl font-semibold text-gray-200 hover:text-gold transition">Deneyim</a>
+            <a href="#education" class="text-2xl font-semibold text-gray-200 hover:text-gold transition">Eğitim</a>
+            <a href="#achievements" class="text-2xl font-semibold text-gray-200 hover:text-gold transition">Başarılar</a>
+            <a href="#contact" class="text-2xl font-semibold text-gray-200 hover:text-gold transition">İletişim</a>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
+        <!-- Background grid pattern -->
+        <div class="hero-grid absolute inset-0 opacity-[0.03]"></div>
+        <!-- Radial glow -->
+        <div class="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-gradient-radial from-gold/[0.06] via-transparent to-transparent rounded-full pointer-events-none"></div>
+
+        <div class="relative z-10 text-center max-w-3xl" data-animate="fade-up">
+            <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gold/20 bg-gold/[0.06] mb-8">
+                <span class="w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(255,215,0,0.6)] animate-pulse"></span>
+                <span class="text-gold text-sm font-medium tracking-wide">Hacettepe Üniversitesi</span>
+            </div>
+
+            <p class="text-sm uppercase tracking-[4px] text-gray-500 mb-3" data-animate="fade-up" data-delay="50">Merhaba, ben</p>
+
+            <h1 class="mb-6" data-animate="fade-up" data-delay="100">
+                <span class="block text-5xl md:text-7xl font-black tracking-tight text-gray-100 leading-[1.1]">B<span id="target-o" class="target-letter-o relative inline-block"><span class="target-o-rings"><span class="ring ring-blue"></span><span class="ring ring-red"></span><span class="ring ring-gold"></span></span><span class="target-o-text">O</span></span>ran Kazım</span>
+                <span class="block text-5xl md:text-7xl font-black tracking-tight bg-gradient-to-r from-gold via-yellow-400 to-gold bg-clip-text text-transparent leading-[1.1]">Üstündağ</span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-gray-400 max-w-xl mx-auto mb-10 leading-relaxed" data-animate="fade-up" data-delay="200">
+                <span class="text-gold font-semibold">Kimya Mühendisliği</span> öğrencisi &amp;
+                <span class="text-target-red font-semibold">Okçuluk Topluluğu</span> Başkan Yardımcısı —
+                <span class="text-gray-200">Savunma Teknolojileri</span> ve
+                <span class="text-gray-200">Proje Yönetimi</span> odaklı.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16" data-animate="fade-up" data-delay="300">
+                <a href="#contact" class="btn-gold group">
+                    <span>İletişime Geç</span>
+                    <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                </a>
+                <a href="#about" class="btn-outline">Keşfet</a>
+            </div>
+
+            <!-- Stats -->
+            <div class="flex items-center justify-center gap-8 md:gap-14" data-animate="fade-up" data-delay="400">
+                <div class="text-center">
+                    <span class="block text-3xl font-black font-mono text-gold" data-count="5">0</span>
+                    <span class="text-xs uppercase tracking-wider text-gray-500">Sertifika</span>
+                </div>
+                <div class="w-px h-10 bg-gray-700/50"></div>
+                <div class="text-center">
+                    <span class="block text-3xl font-black font-mono text-target-red" data-count="2">0</span>
+                    <span class="text-xs uppercase tracking-wider text-gray-500">Ödül</span>
+                </div>
+                <div class="w-px h-10 bg-gray-700/50"></div>
+                <div class="text-center">
+                    <span class="block text-3xl font-black font-mono text-target-blue" data-count="9">0</span>
+                    <span class="text-xs uppercase tracking-wider text-gray-500">Ay Deneyim</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 animate-bounce-slow">
+            <div class="w-5 h-8 rounded-full border-2 border-gray-600 relative">
+                <div class="w-1 h-2 bg-gold rounded-full absolute top-2 left-1/2 -translate-x-1/2 animate-scroll-dot"></div>
+            </div>
+            <span class="text-[10px] uppercase tracking-[3px] text-gray-600">Kaydır</span>
+        </div>
+    </section>
+
+    <!-- ==================== DIAGONAL DIVIDER ==================== -->
+    <div class="section-divider-down"></div>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section id="about" class="relative py-24 md:py-32 px-6 bg-navy-light">
+        <div class="max-w-6xl mx-auto">
+            <div class="section-header" data-animate="fade-up">
+                <span class="font-mono text-sm text-gold tracking-[3px]">01 //</span>
+                <h2 class="text-3xl md:text-5xl font-black mt-2 mb-4">Hakkımda</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-gold to-target-red rounded-full"></div>
+            </div>
+
+            <!-- Asymmetrical Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mt-16">
+                <!-- Main bio card (takes 3 cols) -->
+                <div class="lg:col-span-3 card-glass p-8 md:p-10" data-animate="fade-up" data-delay="100">
+                    <p class="text-gray-300 text-lg leading-relaxed mb-5">
+                        Hacettepe Üniversitesi <strong class="text-gold">Kimya Mühendisliği</strong> bölümünde lisans eğitimime devam ediyorum.
+                        <strong class="text-gray-100">Savunma Teknolojileri</strong>, <strong class="text-gray-100">Sistem Geliştirme</strong> ve
+                        <strong class="text-gray-100">Proje Yönetimi</strong> alanlarında kendimi geliştirmeye odaklanıyorum.
+                    </p>
+                    <p class="text-gray-300 text-lg leading-relaxed mb-6">
+                        Genç Mühendisler Topluluğu'nda kurumsal ilişkiler alanında aktif görev aldım.
+                        Proje yarışmalarında <strong class="text-gold">birincilik</strong> elde ettim ve
+                        okçuluk alanında <strong class="text-target-red">takım ikinciliği</strong> kazandım.
+                    </p>
+                    <div class="flex items-center gap-2 text-gray-500 text-sm pt-6 border-t border-gray-800">
+                        <svg class="w-4 h-4 text-target-red" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>Yenimahalle, Ankara, Türkiye</span>
+                    </div>
+                </div>
+
+                <!-- Side info cards (takes 2 cols) -->
+                <div class="lg:col-span-2 flex flex-col gap-6">
+                    <div class="card-glass p-6 border-l-2 border-gold" data-animate="fade-up" data-delay="200">
+                        <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center mb-3">
+                            <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 7 3 12 0v-5"/></svg>
+                        </div>
+                        <h3 class="text-sm font-bold text-gold uppercase tracking-wider mb-1">Eğitim</h3>
+                        <p class="text-gray-400 text-sm">Hacettepe Üniversitesi — Kimya Mühendisliği</p>
+                    </div>
+                    <div class="card-glass p-6 border-l-2 border-target-red" data-animate="fade-up" data-delay="300">
+                        <div class="w-10 h-10 rounded-lg bg-target-red/10 flex items-center justify-center mb-3">
+                            <svg class="w-5 h-5 text-target-red" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                        </div>
+                        <h3 class="text-sm font-bold text-target-red uppercase tracking-wider mb-1">İlgi Alanı</h3>
+                        <p class="text-gray-400 text-sm">Savunma Teknolojileri — Ar-Ge Süreçleri</p>
+                    </div>
+                    <div class="card-glass p-6 border-l-2 border-target-blue" data-animate="fade-up" data-delay="400">
+                        <div class="w-10 h-10 rounded-lg bg-target-blue/10 flex items-center justify-center mb-3">
+                            <svg class="w-5 h-5 text-target-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <h3 class="text-sm font-bold text-target-blue uppercase tracking-wider mb-1">Topluluk</h3>
+                        <p class="text-gray-400 text-sm">Genç Mühendisler Topluluğu</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skill Tags -->
+            <div class="flex flex-wrap gap-3 mt-12" data-animate="fade-up" data-delay="200">
+                <span class="skill-tag skill-tag-gold">🛡️ Savunma Teknolojileri</span>
+                <span class="skill-tag skill-tag-blue">⚙️ Sistem Geliştirme</span>
+                <span class="skill-tag skill-tag-red">📊 Proje Yönetimi</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DIAGONAL DIVIDER ==================== -->
+    <div class="section-divider-up"></div>
+
+    <!-- ==================== EXPERIENCE SECTION ==================== -->
+    <section id="experience" class="relative py-24 md:py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="section-header" data-animate="fade-up">
+                <span class="font-mono text-sm text-gold tracking-[3px]">02 //</span>
+                <h2 class="text-3xl md:text-5xl font-black mt-2 mb-4">Deneyim</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-gold to-target-red rounded-full"></div>
+            </div>
+
+            <div class="mt-16 max-w-3xl mx-auto">
+                <!-- Timeline -->
+                <div class="relative pl-8 border-l-2 border-gray-800">
+                    <!-- Leadership Card (Special) -->
+                    <div class="timeline-item mb-12" data-animate="fade-up" data-delay="100">
+                        <div class="timeline-dot bg-gold shadow-[0_0_16px_rgba(255,215,0,0.4)]"></div>
+                        <div class="card-glass p-6 md:p-8 border border-gold/20 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-gold/[0.08] to-transparent"></div>
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center flex-shrink-0">
+                                    <!-- Shield / Arrowhead Icon -->
+                                    <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                </div>
+                                <div>
+                                    <span class="inline-block px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-gold/10 text-gold rounded-full mb-2">Başkan Yardımcısı</span>
+                                    <h3 class="text-xl font-bold text-gray-100">Hacettepe Okçuluk Topluluğu</h3>
+                                    <p class="text-gold text-sm font-mono mt-1">Liderlik & Organizasyon</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-400 text-sm leading-relaxed">Okçuluk topluluğunun organizasyon ve yönetim süreçlerinde aktif rol. Yarışma koordinasyonu ve takım liderliği.</p>
+                        </div>
+                    </div>
+
+                    <!-- GMT Experience -->
+                    <div class="timeline-item mb-8" data-animate="fade-up" data-delay="200">
+                        <div class="timeline-dot bg-target-blue shadow-[0_0_12px_rgba(59,130,246,0.3)]"></div>
+                        <div class="card-glass p-6 md:p-8">
+                            <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
+                                <h3 class="text-lg font-bold text-gray-100">Genç Mühendisler Topluluğu</h3>
+                                <span class="text-xs font-mono text-target-blue bg-target-blue/10 px-3 py-1 rounded-full">9 ay</span>
+                            </div>
+
+                            <div class="space-y-5">
+                                <div class="pl-4 border-l-2 border-gray-700 hover:border-gold transition-colors">
+                                    <span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gold/10 text-gold rounded-full mb-1">Stajyer</span>
+                                    <h4 class="text-sm font-semibold text-gray-200">Kurumsal İlişkiler Birimi Stajyeri</h4>
+                                    <p class="text-xs text-gray-500 mt-1 flex items-center gap-1">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                                        Şub 2023 – Haz 2023 (5 ay) · Ankara
+                                    </p>
+                                </div>
+                                <div class="pl-4 border-l-2 border-gray-700 hover:border-target-blue transition-colors">
+                                    <span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-target-blue/10 text-target-blue rounded-full mb-1">Aktif Üye</span>
+                                    <h4 class="text-sm font-semibold text-gray-200">Aktif Üye</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Ara 2022 – Şub 2023 (3 ay) · Ankara</p>
+                                </div>
+                                <div class="pl-4 border-l-2 border-gray-700 hover:border-target-blue transition-colors">
+                                    <span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-target-blue/10 text-target-blue rounded-full mb-1">Üye</span>
+                                    <h4 class="text-sm font-semibold text-gray-200">GMT Kurumsal İlişkiler Birimi Üyesi</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Eki 2022 – Ara 2022 (3 ay) · Ankara</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DIAGONAL DIVIDER ==================== -->
+    <div class="section-divider-down"></div>
+
+    <!-- ==================== EDUCATION SECTION ==================== -->
+    <section id="education" class="relative py-24 md:py-32 px-6 bg-navy-light">
+        <div class="max-w-6xl mx-auto">
+            <div class="section-header" data-animate="fade-up">
+                <span class="font-mono text-sm text-gold tracking-[3px]">03 //</span>
+                <h2 class="text-3xl md:text-5xl font-black mt-2 mb-4">Eğitim</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-gold to-target-blue rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16 max-w-4xl mx-auto">
+                <div class="card-glass p-8 border-t-2 border-gold" data-animate="fade-up" data-delay="100">
+                    <div class="flex items-center gap-4 mb-5">
+                        <div class="w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center">
+                            <svg class="w-7 h-7 text-gold" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 7 3 12 0v-5"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-100">Hacettepe Üniversitesi</h3>
+                            <p class="text-gold text-sm font-medium">Lisans — Kimya Mühendisliği</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-500 text-sm mb-3">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                        Ekim 2023 – Haziran 2027
+                    </div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold bg-emerald-500/10 text-emerald-400 rounded-full">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Devam Ediyor
+                    </span>
+                </div>
+
+                <div class="card-glass p-8 border-t-2 border-target-blue" data-animate="fade-up" data-delay="200">
+                    <div class="flex items-center gap-4 mb-5">
+                        <div class="w-14 h-14 rounded-xl bg-target-blue/10 flex items-center justify-center">
+                            <svg class="w-7 h-7 text-target-blue" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-100">Hacettepe Üniversitesi</h3>
+                            <p class="text-target-blue text-sm font-medium">Yabancı Diller Yüksekokulu</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-500 text-sm mb-3">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                        Eylül 2022 – Haziran 2023
+                    </div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold bg-gray-500/10 text-gray-400 rounded-full">
+                        <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                        Tamamlandı
+                    </span>
+                </div>
+            </div>
+
+            <!-- Certifications Grid -->
+            <h3 class="text-xl font-bold mt-20 mb-8 text-center" data-animate="fade-up">
+                <span class="text-gold">Sertifikalar</span> & Katılım Belgeleri
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                <div class="cert-card" data-animate="fade-up" data-delay="100">
+                    <svg class="w-6 h-6 text-gold mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    <h4 class="text-sm font-semibold text-gray-200">Ar-Ge Süreçlerinde Analitik Kimyanın Rolü</h4>
+                </div>
+                <div class="cert-card" data-animate="fade-up" data-delay="150">
+                    <svg class="w-6 h-6 text-target-red mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                    <h4 class="text-sm font-semibold text-gray-200">Stop the Bleed Training Certificate</h4>
+                </div>
+                <div class="cert-card" data-animate="fade-up" data-delay="200">
+                    <svg class="w-6 h-6 text-gold mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                    <h4 class="text-sm font-semibold text-gray-200">Savunma Sanayii 401</h4>
+                </div>
+                <div class="cert-card" data-animate="fade-up" data-delay="250">
+                    <svg class="w-6 h-6 text-target-blue mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    <h4 class="text-sm font-semibold text-gray-200">Mühendislik Günleri Katılım Belgesi <span class="text-gray-500">| 2022</span></h4>
+                </div>
+                <div class="cert-card" data-animate="fade-up" data-delay="300">
+                    <svg class="w-6 h-6 text-target-blue mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/></svg>
+                    <h4 class="text-sm font-semibold text-gray-200">Firmasötik Ağustos Katılım Belgesi <span class="text-gray-500">| 2022</span></h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DIAGONAL DIVIDER ==================== -->
+    <div class="section-divider-up"></div>
+
+    <!-- ==================== ACHIEVEMENTS & PHOTO ==================== -->
+    <section id="achievements" class="relative py-24 md:py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="section-header" data-animate="fade-up">
+                <span class="font-mono text-sm text-gold tracking-[3px]">04 //</span>
+                <h2 class="text-3xl md:text-5xl font-black mt-2 mb-4">Başarılar</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-gold to-target-red rounded-full"></div>
+            </div>
+
+            <!-- Asymmetrical layout: Awards left, Photo right -->
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 mt-16 items-start">
+                <!-- Awards Column (3 cols) -->
+                <div class="lg:col-span-3 space-y-6">
+                    <!-- Gold Award -->
+                    <div class="card-glass p-6 md:p-8 border-l-4 border-gold group hover:border-l-[6px] transition-all" data-animate="fade-up" data-delay="100">
+                        <div class="flex items-start gap-5">
+                            <div class="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0 group-hover:bg-gold/20 transition">
+                                <span class="text-2xl">🥇</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-100 mb-1">Gençliğin Yenimahallesi Proje Yarışması</h3>
+                                <span class="inline-block px-3 py-1 text-xs font-bold bg-gold/10 text-gold rounded-full">BİRİNCİLİK</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Silver Award -->
+                    <div class="card-glass p-6 md:p-8 border-l-4 border-gray-400 group hover:border-l-[6px] transition-all" data-animate="fade-up" data-delay="200">
+                        <div class="flex items-start gap-5">
+                            <div class="w-14 h-14 rounded-full bg-gray-400/10 flex items-center justify-center flex-shrink-0 group-hover:bg-gray-400/20 transition">
+                                <span class="text-2xl">🥈</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-100 mb-1">Gazi Okçuluk Sonbahar Salon Yarışması</h3>
+                                <span class="inline-block px-3 py-1 text-xs font-bold bg-gray-400/10 text-gray-300 rounded-full">TAKIM İKİNCİSİ — Büyük Erkek Klasik Yay</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Photo Column (2 cols) — Target Ring Border -->
+                <div class="lg:col-span-2 space-y-8" data-animate="fade-up" data-delay="300">
+
+                    <!-- Photo 1: Mete Gazoz -->
+                    <div class="photo-target-card mx-auto max-w-sm">
+                        <div class="target-ring-outer p-[6px] rounded-2xl">
+                            <div class="target-ring-middle p-[5px] rounded-[14px]">
+                                <div class="target-ring-inner p-[4px] rounded-xl">
+                                    <div class="photo-wrapper rounded-lg overflow-hidden relative">
+                                        <img src="mete.jpg" alt="Okçuluk yarışması anısı" class="photo-catalyst w-full aspect-[4/3] object-cover" loading="lazy">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent pointer-events-none"></div>
+                                        <div class="absolute bottom-3 left-3 right-3">
+                                            <div class="flex items-center gap-2 mb-1">
+                                                <span class="text-lg">🎯</span>
+                                                <span class="text-gold text-xs font-bold uppercase tracking-wider">Olimpik Disiplin</span>
+                                            </div>
+                                            <p class="text-gray-300 text-xs leading-relaxed">Odak, Hassasiyet ve Kararlılık — okçuluk tutkusu sahadaki anlardan birine yansıyor.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Photo 2: Üniversitelerarası Lig -->
+                    <div class="photo-target-card mx-auto max-w-sm" data-animate="fade-up" data-delay="400">
+                        <div class="target-ring-outer p-[6px] rounded-2xl">
+                            <div class="target-ring-middle p-[5px] rounded-[14px]">
+                                <div class="target-ring-inner p-[4px] rounded-xl">
+                                    <div class="photo-wrapper rounded-lg overflow-hidden relative">
+                                        <img src="meteünilig.jfif" alt="Boran Kazım Üstündağ - Üniversitelerarası Okçuluk" class="photo-catalyst w-full aspect-[4/3] object-cover" loading="lazy">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent pointer-events-none"></div>
+                                        <div class="absolute bottom-0 left-0 right-0 p-4">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center flex-shrink-0">
+                                                    <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                                </div>
+                                                <span class="text-gold text-xs font-bold uppercase tracking-wider">Başkan Yardımcısı</span>
+                                            </div>
+                                            <p class="text-gray-100 text-sm font-semibold leading-snug">Boran Kazım Üstündağ</p>
+                                            <p class="text-gray-400 text-xs mt-1 leading-relaxed">Hacettepe Üniversitesi Okçuluk Topluluğu Başkan Yardımcısı & Olimpik Sporcu</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Caption card beneath -->
+                        <div class="mt-4 card-glass p-5 border-l-4 border-gold">
+                            <div class="flex items-start gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <span class="text-base">🏹</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-gold mb-1">Mühendislik Hassasiyeti & Olimpik Disiplin</h4>
+                                    <p class="text-gray-400 text-xs leading-relaxed">Kimya mühendisliğinin analitik düşünce yapısı ile okçuluğun gerektirdiği odak, sabır ve hassasiyeti bir arada taşıyan bir yolculuk.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DIAGONAL DIVIDER ==================== -->
+    <div class="section-divider-down"></div>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section id="contact" class="relative py-24 md:py-32 px-6 bg-navy-light">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="section-header" data-animate="fade-up">
+                <span class="font-mono text-sm text-gold tracking-[3px]">05 //</span>
+                <h2 class="text-3xl md:text-5xl font-black mt-2 mb-4">İletişim</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-gold to-target-blue rounded-full mx-auto"></div>
+            </div>
+
+            <p class="text-gray-400 text-lg mt-8 mb-12 max-w-lg mx-auto" data-animate="fade-up" data-delay="100">
+                Benimle iletişime geçmek isterseniz, aşağıdaki kanallardan ulaşabilirsiniz.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg mx-auto">
+                <a href="mailto:k.boranustundag@gmail.com" class="card-glass p-8 text-center group hover:border-gold/30 transition-all" id="email-card" data-animate="fade-up" data-delay="200">
+                    <div class="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-gold/20 group-hover:shadow-[0_0_24px_rgba(255,215,0,0.15)] transition-all">
+                        <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    </div>
+                    <h3 class="font-bold text-gray-200 mb-1">E-posta</h3>
+                    <p class="text-gray-500 text-sm break-all">k.boranustundag@gmail.com</p>
+                </a>
+                <a href="https://www.linkedin.com/in/boran%C3%BCst%C3%BCnda%C4%9F" target="_blank" rel="noopener noreferrer" class="card-glass p-8 text-center group hover:border-target-blue/30 transition-all" id="linkedin-card" data-animate="fade-up" data-delay="300">
+                    <div class="w-14 h-14 rounded-full bg-target-blue/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-target-blue/20 group-hover:shadow-[0_0_24px_rgba(59,130,246,0.15)] transition-all">
+                        <svg class="w-6 h-6 text-target-blue" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </div>
+                    <h3 class="font-bold text-gray-200 mb-1">LinkedIn</h3>
+                    <p class="text-gray-500 text-sm">boranüstündağ</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="py-8 px-6 border-t border-gray-800/50 bg-navy">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span class="font-mono text-sm font-bold"><span class="text-gold">&lt;</span>BKÜ<span class="text-gold">/&gt;</span></span>
+            <p class="text-gray-600 text-sm">© 2026 Boran Kazım Üstündağ. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,457 @@
+/* ===========================
+   CUSTOM CSS — ARCHERY TARGET THEME
+   =========================== */
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #020617; }
+::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.25); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 215, 0, 0.45); }
+
+/* ---- Selection ---- */
+::selection { background: rgba(255, 215, 0, 0.2); color: #fff; }
+
+/* ---- Smooth scroll ---- */
+html { scroll-behavior: smooth; }
+
+/* ---- Hero grid pattern ---- */
+.hero-grid {
+    background-image:
+        linear-gradient(rgba(255,215,0,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,215,0,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+
+/* ---- Radial gradient helper ---- */
+.bg-gradient-radial {
+    background: radial-gradient(circle, var(--tw-gradient-from), var(--tw-gradient-to));
+}
+
+/* ===========================
+   TARGET LETTER "O" — CONCENTRIC RINGS
+   =========================== */
+.target-letter-o {
+    position: relative;
+    display: inline-block;
+    cursor: default;
+}
+
+.target-o-rings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.15em;
+    height: 1.15em;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+    filter: drop-shadow(0 0 8px rgba(255,215,0,0.3));
+}
+
+.target-o-rings .ring {
+    position: absolute;
+    border-radius: 50%;
+    display: block;
+}
+
+.target-o-rings .ring-blue {
+    inset: 0;
+    background: #3B82F6;
+    opacity: 0.45;
+}
+
+.target-o-rings .ring-red {
+    inset: 25%;
+    background: #EF4444;
+    opacity: 0.6;
+}
+
+.target-o-rings .ring-gold {
+    inset: 50%;
+    background: #FFD700;
+    opacity: 0.85;
+    box-shadow: 0 0 14px rgba(255,215,0,0.6), 0 0 40px rgba(255,215,0,0.2);
+}
+
+.target-o-text {
+    position: relative;
+    z-index: 2;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.25);
+}
+
+/* Glow pulse after arrow hit */
+.target-letter-o.target-hit .target-o-rings {
+    animation: target-glow-pulse 0.6s ease-out;
+}
+
+@keyframes target-glow-pulse {
+    0% { filter: drop-shadow(0 0 8px rgba(255,215,0,0.3)); transform: translate(-50%,-50%) scale(1); }
+    40% { filter: drop-shadow(0 0 30px rgba(255,215,0,0.8)) drop-shadow(0 0 60px rgba(255,215,0,0.4)); transform: translate(-50%,-50%) scale(1.15); }
+    100% { filter: drop-shadow(0 0 12px rgba(255,215,0,0.4)); transform: translate(-50%,-50%) scale(1); }
+}
+
+/* ===========================
+   NAVIGATION
+   =========================== */
+.nav-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #94a3b8;
+    padding: 6px 14px;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: #e2e8f0;
+    background: rgba(255, 215, 0, 0.06);
+}
+
+.nav-link.active {
+    color: #FFD700;
+    background: rgba(255, 215, 0, 0.1);
+}
+
+#navbar.scrolled {
+    background: rgba(2, 6, 23, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.06);
+}
+
+#navbar.scrolled .py-5 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+/* ===========================
+   BUTTONS
+   =========================== */
+.btn-gold {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #FFD700 0%, #f5c518 100%);
+    color: #020617;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 12px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.25);
+    text-decoration: none;
+}
+
+.btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba(255, 215, 0, 0.35);
+}
+
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    background: transparent;
+    color: #FFD700;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 12px;
+    border: 1.5px solid rgba(255, 215, 0, 0.25);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+}
+
+.btn-outline:hover {
+    background: rgba(255, 215, 0, 0.06);
+    border-color: rgba(255, 215, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+/* ===========================
+   GLASS CARDS
+   =========================== */
+.card-glass {
+    background: rgba(13, 27, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-glass:hover {
+    background: rgba(13, 27, 42, 0.85);
+    border-color: rgba(255, 255, 255, 0.08);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3), 0 0 32px rgba(255, 215, 0, 0.04);
+}
+
+/* ===========================
+   SKILL TAGS
+   =========================== */
+.skill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: default;
+}
+
+.skill-tag-gold {
+    background: rgba(255, 215, 0, 0.06);
+    border: 1px solid rgba(255, 215, 0, 0.15);
+    color: #FFD700;
+}
+.skill-tag-gold:hover {
+    background: rgba(255, 215, 0, 0.12);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.skill-tag-blue {
+    background: rgba(59, 130, 246, 0.06);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    color: #3B82F6;
+}
+.skill-tag-blue:hover {
+    background: rgba(59, 130, 246, 0.12);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+    transform: translateY(-2px);
+}
+
+.skill-tag-red {
+    background: rgba(239, 68, 68, 0.06);
+    border: 1px solid rgba(239, 68, 68, 0.15);
+    color: #EF4444;
+}
+.skill-tag-red:hover {
+    background: rgba(239, 68, 68, 0.12);
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.1);
+    transform: translateY(-2px);
+}
+
+/* ===========================
+   CERTIFICATION CARDS
+   =========================== */
+.cert-card {
+    background: rgba(13, 27, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cert-card:hover {
+    background: rgba(13, 27, 42, 0.7);
+    border-color: rgba(255, 215, 0, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* ===========================
+   DIAGONAL SECTION DIVIDERS
+   =========================== */
+.section-divider-down {
+    height: 80px;
+    background: linear-gradient(to bottom right, #020617 49.8%, #0a1628 50.2%);
+    position: relative;
+    z-index: 2;
+}
+
+.section-divider-up {
+    height: 80px;
+    background: linear-gradient(to bottom right, #0a1628 49.8%, #020617 50.2%);
+    position: relative;
+    z-index: 2;
+}
+
+/* ===========================
+   TIMELINE
+   =========================== */
+.timeline-dot {
+    position: absolute;
+    left: -9px;
+    top: 32px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.timeline-item {
+    position: relative;
+}
+
+/* ===========================
+   PHOTO — TARGET RING BORDER
+   =========================== */
+.target-ring-outer {
+    background: linear-gradient(135deg, #FFD700, rgba(255, 215, 0, 0.3));
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.12);
+    transition: box-shadow 0.5s ease;
+}
+
+.target-ring-middle {
+    background: linear-gradient(135deg, #EF4444, rgba(239, 68, 68, 0.3));
+}
+
+.target-ring-inner {
+    background: linear-gradient(135deg, #3B82F6, rgba(59, 130, 246, 0.3));
+}
+
+.photo-target-card:hover .target-ring-outer {
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.2), 0 0 80px rgba(255, 215, 0, 0.08);
+}
+
+/* Catalyst photo effect: grayscale → vibrant */
+.photo-catalyst {
+    filter: grayscale(50%) brightness(0.8);
+    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.photo-wrapper:hover .photo-catalyst {
+    filter: grayscale(0%) brightness(1.05);
+    transform: scale(1.05);
+}
+
+.photo-wrapper {
+    overflow: hidden;
+}
+
+/* ===========================
+   INTERACTIVE TARGET WIDGET (Corner)
+   =========================== */
+.target-widget:hover .target-rings > div {
+    opacity: 1;
+}
+
+.target-widget:hover .target-arrow-stuck {
+    opacity: 1 !important;
+    animation: arrow-vibrate 0.15s ease-in-out 4;
+}
+
+@keyframes arrow-vibrate {
+    0%, 100% { transform: translateX(-50%) rotate(0deg); }
+    25% { transform: translateX(-50%) rotate(2deg); }
+    75% { transform: translateX(-50%) rotate(-2deg); }
+}
+
+.target-widget:hover .target-rings {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
+    border-radius: 50%;
+}
+
+/* ===========================
+   SPLASH SCREEN
+   =========================== */
+#splash {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#splash-arrow {
+    position: absolute;
+    filter: drop-shadow(0 0 12px rgba(255,215,0,0.6)) drop-shadow(0 0 40px rgba(255,215,0,0.2));
+    transform-origin: center center;
+    will-change: left, top, transform, opacity;
+    z-index: 10;
+}
+
+#splash-arrow.arrow-vibrating {
+    animation: stuck-vibrate 0.08s ease-in-out 5;
+}
+
+@keyframes stuck-vibrate {
+    0%, 100% { filter: drop-shadow(0 0 12px rgba(255,215,0,0.6)); }
+    50% { filter: drop-shadow(0 0 20px rgba(255,215,0,0.9)); transform: translate(-50%,-50%) rotate(var(--final-angle)) translateY(-1px); }
+}
+
+/* ===========================
+   CHEMICAL ENGINEERING BG
+   =========================== */
+#chem-bg {
+    transition: opacity 0.5s ease-out;
+    will-change: opacity;
+}
+
+/* ===========================
+   SCROLL ANIMATIONS
+   =========================== */
+[data-animate] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-animate].visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===========================
+   CUSTOM ANIMATIONS
+   =========================== */
+@keyframes bounce-slow {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-6px); }
+}
+
+.animate-bounce-slow {
+    animation: bounce-slow 3s ease-in-out infinite;
+}
+
+@keyframes scroll-dot-anim {
+    0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+    100% { transform: translateX(-50%) translateY(10px); opacity: 0; }
+}
+
+.animate-scroll-dot {
+    animation: scroll-dot-anim 1.8s ease-in-out infinite;
+}
+
+/* ===========================
+   SECTION HEADER
+   =========================== */
+.section-header {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+/* ===========================
+   MOBILE RESPONSIVENESS
+   =========================== */
+@media (max-width: 768px) {
+    .section-divider-down,
+    .section-divider-up {
+        height: 50px;
+    }
+    .target-o-text {
+        -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.2);
+    }
+}
+
+/* ===========================
+   MOBILE MENU ANIMATION
+   =========================== */
+#mobile-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+#mobile-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+#mobile-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+#mobile-menu.open {
+    opacity: 1;
+    pointer-events: all;
+}
